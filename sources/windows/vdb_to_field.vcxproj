@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="houdini15.5|Win32">
+      <Configuration>houdini15.5</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="houdini15.5|x64">
+      <Configuration>houdini15.5</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="houdni16|Win32">
+      <Configuration>houdni16</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="houdni16|x64">
+      <Configuration>houdni16</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\vdb_to_field.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\vdb_to_field.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3B5FC857-ECB2-410E-8D25-FFCE869A3AC2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>vdb_to_field</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-TP
+-Zc:forScope
+-Zc:rvalueCast
+-Zc:strictStrings
+-DAMD64
+-DSIZEOF_VOID_P=8
+-DI386
+-DWIN32
+-DSWAP_BITFIELDS
+-D_WIN32_WINNT=0x0502
+-DNOMINMAX
+-DSTRICT
+-DWIN32_LEAN_AND_MEAN
+-D_USE_MATH_DEFINES
+-D_CRT_SECURE_NO_DEPRECATE
+-D_CRT_NONSTDC_NO_DEPRECATE
+-D_SCL_SECURE_NO_WARNINGS
+-DSESI_LITTLE_ENDIAN
+-DBOOST_ALL_NO_LIB
+-DEIGEN_MALLOC_ALREADY_ALIGNED=0
+-DFBX_ENABLED=1
+-DOPENCL_ENABLED=1
+-DOPENVDB_ENABLED=1
+-DOPENVDB_3_ABI_COMPATIBLE
+-I "."
+-I "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/toolkit/include"
+-I "C:/PROGRA~2/MICROS~1.0/VC/include"
+-I "C:/Program Files(x86)/WindowsKits/10/Include/10.0.10586.0/ucrt"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/um"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/shared"
+-wd4355
+-w14996
+-O2
+-DNDEBUG
+-MD
+-EHsc
+-GR
+-bigobj
+-DMAKING_DSO
+ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Side Effects Software\Houdini 16.0.557\toolkit\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>-LIBPATH:"C:/PROGRA~2/MICROS~1.0/VC/lib/amd64"
+-LIBPATH:"C:/ProgramFiles(x86)/WindowsKits/10/Lib/10.0.10586.0/ucr/x64"
+-LIBPATH:"C:/Program Files(x86)/WindowsKits/8.1/Lib/winv6.3/um/x64"
+-LIBPATH:"C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib/*.a" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib/*.lib"
+-out:"C:/Users/alexey/Documents/houdini16.0/dso/vdb_to_field.dll" %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='houdini15.5|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-TP
+-Zc:forScope
+-Zc:rvalueCast
+-Zc:strictStrings
+-DAMD64
+-DSIZEOF_VOID_P=8
+-DI386
+-DWIN32
+-DSWAP_BITFIELDS
+-D_WIN32_WINNT=0x0502
+-DNOMINMAX
+-DSTRICT
+-DWIN32_LEAN_AND_MEAN
+-D_USE_MATH_DEFINES
+-D_CRT_SECURE_NO_DEPRECATE
+-D_CRT_NONSTDC_NO_DEPRECATE
+-D_SCL_SECURE_NO_WARNINGS
+-DSESI_LITTLE_ENDIAN
+-DBOOST_ALL_NO_LIB
+-DEIGEN_MALLOC_ALREADY_ALIGNED=0
+-DFBX_ENABLED=1
+-DOPENCL_ENABLED=1
+-DOPENVDB_ENABLED=1
+-DOPENVDB_3_ABI_COMPATIBLE
+-I "."
+-I "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.830/toolkit/include"
+-I "C:/PROGRA~2/MICROS~1.0/VC/include"
+-I "C:/Program Files(x86)/WindowsKits/10/Include/10.0.10586.0/ucrt"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/um"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/shared"
+-wd4355
+-w14996
+-O2
+-DNDEBUG
+-MD
+-EHsc
+-GR
+-bigobj
+-DMAKING_DSO
+ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Side Effects Software\Houdini 15.5.830\toolkit\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>-LIBPATH:"C:/PROGRA~2/MICROS~1.0/VC/lib/amd64"
+-LIBPATH:"C:/ProgramFiles(x86)/WindowsKits/10/Lib/10.0.10586.0/ucr/x64"
+-LIBPATH:"C:/Program Files(x86)/WindowsKits/8.1/Lib/winv6.3/um/x64"
+-LIBPATH:"C:/PROGRA~1/SIDEEF~1/HOUDIN~1.830/custom/houdini/dsolib" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.830/custom/houdini/dsolib/*.a" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.830/custom/houdini/dsolib/*.lib"
+-out:"C:/Users/alexey/Documents/houdini15.5/dso/vdb_to_field.dll" %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='houdni16|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;VDB_TO_FIELD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-TP
+-Zc:forScope
+-Zc:rvalueCast
+-Zc:strictStrings
+-DAMD64
+-DSIZEOF_VOID_P=8
+-DI386
+-DWIN32
+-DSWAP_BITFIELDS
+-D_WIN32_WINNT=0x0502
+-DNOMINMAX
+-DSTRICT
+-DWIN32_LEAN_AND_MEAN
+-D_USE_MATH_DEFINES
+-D_CRT_SECURE_NO_DEPRECATE
+-D_CRT_NONSTDC_NO_DEPRECATE
+-D_SCL_SECURE_NO_WARNINGS
+-DSESI_LITTLE_ENDIAN
+-DBOOST_ALL_NO_LIB
+-DEIGEN_MALLOC_ALREADY_ALIGNED=0
+-DFBX_ENABLED=1
+-DOPENCL_ENABLED=1
+-DOPENVDB_ENABLED=1
+-DOPENVDB_3_ABI_COMPATIBLE
+-I "."
+-I "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/toolkit/include"
+-I "C:/PROGRA~2/MICROS~1.0/VC/include"
+-I "C:/Program Files(x86)/WindowsKits/10/Include/10.0.10586.0/ucrt"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/um"
+-I "C:/Program Files (x86)/Windows Kits/8.1/Include/shared"
+-wd4355
+-w14996
+-O2
+-DNDEBUG
+-MD
+-EHsc
+-GR
+-bigobj
+-DMAKING_DSO
+ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Side Effects Software\Houdini 16.0.557\toolkit\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>-LIBPATH:"C:/PROGRA~2/MICROS~1.0/VC/lib/amd64"
+-LIBPATH:"C:/ProgramFiles(x86)/WindowsKits/10/Lib/10.0.10586.0/ucr/x64"
+-LIBPATH:"C:/Program Files(x86)/WindowsKits/8.1/Lib/winv6.3/um/x64"
+-LIBPATH:"C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib/*.a" "C:/PROGRA~1/SIDEEF~1/HOUDIN~1.557/custom/houdini/dsolib/*.lib"
+-out:"C:/Users/alexey/Documents/houdini16.0/dso/vdb_to_field.dll" %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
