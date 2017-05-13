@@ -75,7 +75,7 @@ public:
 		)
 
 		int   myLength;
-	    VdbToFieldData sd;// solver data
+	VdbToFieldData sd;// solver data
 
 	bool skipTile(
 		UT_VoxelArrayIteratorF& vit,
@@ -368,9 +368,9 @@ void CalculateVdbToField < SamplerType >::calculateScalarPartial(
 
 template <typename SamplerType>
 void CalculateVdbToField<SamplerType>::calculateVectorPartial(
-																SIM_VectorField* dst,
-																std::vector< openvdb::VectorGrid::ConstPtr >& vdb_grid,
-																const UT_JobInfo &info
+	SIM_VectorField* dst,
+	std::vector< openvdb::VectorGrid::ConstPtr >& vdb_grid,
+	const UT_JobInfo &info
 )
 {
 
@@ -674,7 +674,7 @@ const SIM_DopDescription *VdbToField::getDopDescription()
 	static PRM_Name     srcMultName("srcmult", "Source Multiply");
 	static PRM_Default  srcMultDef(1);
 	static PRM_Range    srcMultRange(PRM_RANGE_FREE, 0, PRM_RANGE_UI, 10);
-	                                                       
+
 	static PRM_Name     velThresholdName("vel_threshold", "Vel Add/Max Threshold");
 	static PRM_Default  velThresholdDef(1);
 	static PRM_Range    velThresholdRange(PRM_RANGE_FREE, 0, PRM_RANGE_UI, 100);
@@ -733,6 +733,8 @@ const SIM_DopDescription *VdbToField::getDopDescription()
 		"$OS",
 		classname(),
 		theTemplates);
+
+	theDopDescription.setDefaultUniqueDataName(1);
 
 	return &theDopDescription;
 }
@@ -826,7 +828,7 @@ void
 VdbToField::getSopSources(
 	SIM_Object *obj,
 	const GU_Detail* srcGdp,
-	VdbToFieldData&   sd ) // solver data
+	VdbToFieldData&   sd) // solver data
 {
 
 	UT_Matrix4D mtrx;

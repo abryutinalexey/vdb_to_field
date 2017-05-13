@@ -734,6 +734,8 @@ const SIM_DopDescription *VdbToField::getDopDescription()
 		classname(),
 		theTemplates);
 
+	theDopDescription.setDefaultUniqueDataName(1);
+
 	return &theDopDescription;
 }
 

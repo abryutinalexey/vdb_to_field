@@ -25,10 +25,8 @@
 */
 
 
-
 #ifndef __VdbToField_h__
 #define __VdbToField_h__
-
 
 #include <GAS/GAS_SubSolver.h>
 #include <GAS/GAS_Utils.h>
