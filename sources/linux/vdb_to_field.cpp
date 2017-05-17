@@ -411,6 +411,9 @@ void CalculateVdbToField<SamplerType>::calculateVectorPartial(
 	int y_ix, y_iy, y_iz;
 	int z_ix, z_iy, z_iz;
 
+	int xrez, yrez, zrez;
+	velx->getVoxelRes(xrez, yrez, zrez);
+
 	if (dst->isFaceSampled())
 		vxlOfst = voxelSize;
 	else
@@ -464,25 +467,14 @@ void CalculateVdbToField<SamplerType>::calculateVectorPartial(
 				//                                   voxel_y ( y_ix, y_iy, y_iz )
 
 
-				//          to get indexes for y vel field
-				//          subtracting from x pos half of voxel size in x
-				//          and adding voxel size in y
-				//          then posToindex using calculated positon
-				//
-				//          sourcing only for "in" voxels
-
-				//          i can't visualize voxel_z in here :)
-				//
+				if (vit_t.x() == xrez) continue;
 
 				velx->indexToPos(vit_t.x(), vit_t.y(), vit_t.z(), voxelP);
+				srcPos = voxelP + UT_Vector3F(0, vxlOfst.y() / 2, vxlOfst.z() / 2);
 
-				srcPos = voxelP + UT_Vector3F(0, -vxlOfst.y() / 2, -vxlOfst.z() / 2);
-
-				dst->posToIndex(1, voxelP + UT_Vector3F(vxlOfst.x() / 2, -vxlOfst.y() / 2, 0), y_ix, y_iy, y_iz);
-				if (!vely_rf->isValidIndex(y_ix, y_iy, y_iz)) continue;
-
-				dst->posToIndex(2, voxelP + UT_Vector3F(vxlOfst.x() / 2, 0, -vxlOfst.z() / 2), z_ix, z_iy, z_iz);
-				if (!velz_rf->isValidIndex(z_ix, z_iy, z_iz)) continue;
+				y_ix = z_ix = vit_t.x();
+				y_iy = z_iy = vit_t.y();
+				y_iz = z_iz = vit_t.z();
 
 				oldVal.assign(vit_t.getValue(), vely_rf->getValue(y_ix, y_iy, y_iz), velz_rf->getValue(z_ix, z_iy, z_iz));
 
@@ -536,15 +528,14 @@ void CalculateVdbToField<SamplerType>::calculateVectorPartial(
 
 			for (vit_t.rewind(); !vit_t.atEnd(); vit_t.advance())
 			{
+				if (vit_t.x() == xrez) continue;
+
 				velx->indexToPos(vit_t.x(), vit_t.y(), vit_t.z(), voxelP);
+				srcPos = voxelP + UT_Vector3F(0, vxlOfst.y() / 2, vxlOfst.z() / 2);
 
-				srcPos = voxelP + UT_Vector3F(0, -vxlOfst.y() / 2, -vxlOfst.z() / 2);
-
-				dst->posToIndex(1, voxelP + UT_Vector3F(vxlOfst.x() / 2, -vxlOfst.y() / 2, 0), y_ix, y_iy, y_iz);
-				dst->posToIndex(2, voxelP + UT_Vector3F(vxlOfst.x() / 2, 0, -vxlOfst.z() / 2), z_ix, z_iy, z_iz);
-
-				if (!vely_rf->isValidIndex(y_ix, y_iy, y_iz)) continue;
-				if (!velz_rf->isValidIndex(z_ix, z_iy, z_iz)) continue;
+				y_ix = z_ix = vit_t.x();
+				y_iy = z_iy = vit_t.y();
+				y_iz = z_iz = vit_t.z();
 
 				oldVal.assign(vit_t.getValue(), vely_rf->getValue(y_ix, y_iy, y_iz), velz_rf->getValue(z_ix, z_iy, z_iz));
 
