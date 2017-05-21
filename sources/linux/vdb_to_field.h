@@ -25,8 +25,10 @@
 */
 
 
+
 #ifndef __VdbToField_h__
 #define __VdbToField_h__
+
 
 #include <GAS/GAS_SubSolver.h>
 #include <GAS/GAS_Utils.h>
@@ -61,7 +63,8 @@ namespace HDK_Sample {
 		int srcUsed;
 		int srcTotal;
 
-		UT_String vdbName;
+		UT_BoundingBoxF srcBbox;
+		UT_String       vdbName;
 
 		SIM_ScalarField  *dstscalar;
 		SIM_VectorField  *dstvector;

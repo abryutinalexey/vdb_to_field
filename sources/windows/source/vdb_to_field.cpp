@@ -26,8 +26,6 @@
 
 
 
-
-
 #include "vdb_to_field.h"
 
 #include <SOP/SOP_Node.h>
@@ -92,14 +90,13 @@ public:
 
 		vdbPrimNum.clear();
 		mtile = vit.getTile();
-
 		dst->indexToPos(vit.x(), vit.y(), vit.z(), voxelPos);
-
 		tileRadVec = UT_Vector3F(voxel_size.x()*mtile->xres(), voxel_size.y()*mtile->yres(), voxel_size.z()*mtile->zres());
-
 		tileRadVec += voxelPos;
 
 		UT_BoundingBoxF tileBbox(voxelPos, tileRadVec);
+
+		if (!tileBbox.intersects(sd.srcBbox)) return true;
 
 		struct BboxPrimNum
 		{
@@ -807,6 +804,7 @@ void VdbToField::getVdbSources(
 
 		bbox.transform(mtrx);
 
+		sd.srcBbox.enlargeBounds(bbox);
 		sd.vdbBbox->push_back(bbox);
 		sd.vdbMult->push_back(sd.geoMult->at(i));
 		sd.vdbV->push_back(sd.geoV->at(i));
@@ -906,7 +904,7 @@ VdbToField::getSopSources(
 
 				// otherwise push GEO_PrimVDB* to geoVdbPntrs
 				sd.geoVdbPntrs->push_back(vbdPrim);
-				packedPrim->getFullTransform4(mtrx);
+				packedPrim->getFullTransform4(mtrx);				
 				sd.geoMatrix->push_back(mtrx);
 
 				sd.srcTotal++;
@@ -1033,7 +1031,7 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 	SIM_ScalarField   *mask_field;
 
 	SIM_DataArray     dst;
-	SIM_DataArray     mask;
+	SIM_DataArray     dopSrc;
 
 	UT_String         srcPath;
 	UT_String         VdbName;
@@ -1047,7 +1045,17 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 	getVdbName(VdbName);
 
 	getMatchingData(dst, obj, GAS_NAME_FIELDDEST);
-	getMatchingData(mask, obj, "source_mask");
+
+	if (!dst.entries())
+	{
+		addError(obj, SIM_MESSAGE, "Fewer fields specified.", UT_ERROR_WARNING);
+		return true;
+	}
+
+	dstscalar = SIM_DATA_CAST(dst(0), SIM_ScalarField);
+	dstvector = SIM_DATA_CAST(dst(0), SIM_VectorField);
+
+
 
 	//    data from sop geometry
 	std::vector< const GEO_PrimVDB* >        geoVdbPntrs;
@@ -1064,6 +1072,9 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 
 	VdbToFieldData solverData;
 
+	solverData.dstscalar = dstscalar;
+	solverData.dstvector = dstvector;
+
 	solverData.vdbName = VdbName;
 
 	solverData.vdbV = &vdbV;
@@ -1075,8 +1086,10 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 	solverData.geoMult = &geoMult;
 	solverData.geoV = &geoV;
 
+
 	for (int s = 0; s<susteps; s++)
 	{
+		
 
 		solverData.simTime = getTime();
 		solverData.susteps = susteps;
@@ -1088,40 +1101,48 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 		solverData.srcMult = srcMult;
 		solverData.srcTotal = 0;
 		solverData.srcUsed = 0;
+		solverData.srcBbox.setBounds(0, 0, 0, 0, 0, 0);
 
 		gtime = stime - (timeStep / susteps)*s;
 
 		srcSop = getSOPNode(srcPath, 1);
-		if (!srcSop)
+
+		if (srcSop)
 		{
-			addError(obj, SIM_MESSAGE, "Invalid Vdb Path", UT_ERROR_WARNING);
-			return true;
+			srcSop->forceRecook();
+			OP_Context  srcContext(gtime);
+			srcGdh = srcSop->getCookedGeoHandle(srcContext);
+			GU_DetailHandleAutoReadLock  srcGdl(srcGdh);
+			srcGdp = srcGdl.getGdp();
+			if (!srcGdp)
+			{
+				addError(obj, SIM_MESSAGE, "Invalid Vdb Source Gdp", UT_ERROR_WARNING);
+				return true;
+			}
+
+		}
+		else
+		{
+			SIM_Geometry  *srcSimGeo;
+			srcSimGeo = SIM_DATA_GET(*obj, srcPath, SIM_Geometry);
+			if (!srcSimGeo)
+			{
+				addError(obj, SIM_MESSAGE, "Invalid Vdb Path or SIM_Geometry", UT_ERROR_WARNING);
+				return true;
+			}
+
+			srcGdh = srcSimGeo->getOwnGeometry();
+			GU_DetailHandleAutoReadLock  srcGdl(srcGdh);
+			srcGdp = srcGdl.getGdp();
+
+			if (!srcGdp)
+			{
+				addError(obj, SIM_MESSAGE, "Invalid SIM_Geometry", UT_ERROR_WARNING);
+				return true;
+			}
+
 		}
 
-		srcSop->forceRecook();
-
-		OP_Context  srcContext(gtime);
-		srcGdh = srcSop->getCookedGeoHandle(srcContext);
-		GU_DetailHandleAutoReadLock  srcGdl(srcGdh);
-		srcGdp = srcGdl.getGdp();
-
-		if (!srcGdp)
-		{
-			addError(obj, SIM_MESSAGE, "Invalid Vdb Source Path", UT_ERROR_WARNING);
-			return true;
-		}
-
-		if (!dst.entries())
-		{
-			addError(obj, SIM_MESSAGE, "Fewer fields specified.", UT_ERROR_WARNING);
-			return true;
-		}
-
-		dstscalar = SIM_DATA_CAST(dst(0), SIM_ScalarField);
-		dstvector = SIM_DATA_CAST(dst(0), SIM_VectorField);
-
-		solverData.dstscalar = dstscalar;
-		solverData.dstvector = dstvector;
 
 		// filling geo vectors in solverData
 		getSopSources(obj, srcGdp, solverData);
@@ -1199,6 +1220,7 @@ bool VdbToField::solveGasSubclass(SIM_Engine &engine,
 
 	return true;
 }
+
 
 
 
